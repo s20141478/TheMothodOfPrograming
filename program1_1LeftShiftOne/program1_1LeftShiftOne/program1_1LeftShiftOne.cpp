@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 
-//·½·¨Ò»£ºÍ¨¹ıÒ»¸öº¯ÊıÊı´Îµ÷ÓÃÊµÏÖ×îÖÕµÄ½á¹û
+//·½·¨Ò»£ºµİ¹éµ÷ÓÃ£ºÍ¨¹ıÒ»¸öº¯ÊıÊı´Îµ÷ÓÃÊµÏÖ×îÖÕµÄ½á¹û
 //¸Ãº¯ÊıÊÇ½«µÚÒ»Î»ÒÆµ½×îºóÒ»Î»£¬ºóÃæµÄ×Ö·û¾ù×óÒÆ¡££¨Ë¼¿¼£º¿ÉÒÔÊ¹ÓÃ¶ÓÁĞµÄË¼Ïë£©
 //¿Î±¾ÉÏÊÇchar* aµ«ÊÇaÎªÖ¸Õë£¬ÓĞ¿ÉÄÜÖ¸Ïò×Ö·û´®³£Á¿£¬Ôò²»¿ÉÒÔÊ¹ÓÃforÀïµÄ¸³ÖµÓï¾ä¸Ä±ä³£Á¿µÄÖµ
 void leftOne(char* a,int n)
@@ -31,14 +31,103 @@ void repeatRun(char* a,int n,int m)//m±íÊ¾ÒªÖ´ĞĞµÄµ÷ÓÃ´ÎÊı£¬¿ÉÒÔÔÚmainÖĞm=n/2µÈ¹
 	}
 }
 
+//·½·¨¶ş£ºÊ¹ÓÃ¶ş·Ö·¨Çó½â×Ö·û´®µÄ·´×ª£¬Í¬Ê±Õë¶ÔÆæÊıºÍÅ¼ÊıµÄ³¤¶È×÷ÏàÓ¦µÄµ÷Õû
+/*void reverseString(string &s,int n)//ÕâÊÇ×Ö·û´®µÄ·´×ª
+{
+	int m=n/2;	//ÎŞÂÛÆæÊıÅ¼Êı¶¼Ò»Ñù
+	for (int i = 0; i < m; i++)
+			swap(s[i],s[n-i-1]);
+}*/
+void reverseString(string &s,int t1,int t2)	
+{
+	int p=(t2-t1+1)/2;//È¡ÖĞµã
+	for (int i = 0; i < p; i++)
+	{
+		swap(s[t1+i],s[t2-i]);
+	}
+}
+void repeatRun(string &s,int n)		//¶ş·Ö·¨µÄÊ¹ÓÃ
+{
+	int m=n/2;
+	if (n%2!=0)//×Ö·û´®µÄ³¤¶ÈÎªÆæÊı£¬ÔòÖĞ¼äµÄ×Ö·ûµÄÎ»ÖÃ²»·¢Éú¸Ä±ä¼´s[n/2]²»±ä
+	{//ÆæÊı
+		//m=n/2-1;
+		reverseString(s,0,m-1);
+		reverseString(s,m+1,n-1);
+	}
+	else
+	{//Å¼Êı
+	/*	m=n/2;*/
+		reverseString(s,0,m-1);
+		reverseString(s,m,n-1);
+	}
+	reverseString(s,0,n-1);
+	cout<<s<<endl;
+}
 
 
+//ÉÏÊö½â·¨»¹¿ÉÒÔÊ¹ÓÃÒÆÎ»À´ÊµÏÖ£¬Ìæ»»swapº¯Êı£¬
+/*//¿Î±¾ÉÏµÄ·½·¨£º
+void ReverseString(string& s ,int from,int to)//fromÊÇ¿ªÊ¼µÄÔªËØÏÂ±ê£¬toÊÇÄ©Î²ÔªËØÏÂ±ê
+{
+	while(from<to)	//»¥»»Ç°ºóÁ½¸öÔªËØ
+	{
+		char t=s[from];
+		s[from++]=s[to];
+		s[to--]=t;
+	}
+}
+void LeftRotateString(string& s,int n,int m)
+{
+	m%=n;
+	ReverseString(s,0,m-1);
+	ReverseString(s,m,n-1);
+	ReverseString(s,0,m-1);
+}
+*/
+
+//¾ÙÒ»·´ÈıÏ°Ìâ£º½«¾ä×ÓÖĞµÄµ¥´ÊË³Ğò·­×ª£¬Èç:"i am a student."·­×ªºóÊÇ"student. a am i"
+//Ë¼Â·£ºÏÈÊ¹ÓÃ¶ş·Ö·¨½«Õû¸ö×Ö·û´®·´×ª£¬È»ºóÔÚÒÔ¿Õ¸ñ×÷ÎªÅĞ±ğµ¥´ÊµÄÕûÌåĞÔÀ´½«µ¥´ÊµÄË³Ğò·µ»ØÕı³£
+void reverseWord(string& s,int t1,int t2)//t1Îª¿ªÊ¼ÔªËØµÄÏÂ±ê£¬t2ÎªÔªËØµÄ¸öÊı
+{
+	int m=(t2-t1)/2;
+	for (int i = 0; i < m; i++)
+			swap(s[t1+i],s[t2-i-1]);//´ËÊ±×Ö·û´®µÄË³Ğò¶¼µ¹¹ıÀ´ÁË£¬È»ºó½«Á½¸ö¿Õ¸ñÖ®¼äµÄµ¥´ÊÔÙ·´×ªÒ»±é¾Í¿ÉÒÔÁË
+}
+
+void reverseWordRun(string& s,int n)	//ÈôĞÎ²ÎÎªchar* ÔòÔÚmainº¯ÊıÖĞ¾ßÌåµÄ×Ö·û´®Ö»ÄÜÓÃÊı×éµÄĞÎÊ½ÊµÀı»¯char[n],²»ÄÜÓÃC·ç¸ñ×Ö·û´®
+{
+	reverseWord(s,0,n);
+	cout<<s<<"this is the first reverse."<<endl;
+	int i=0;//´Ó·´×ªºóµÄ×Ö·û´®µÄÊ×Î»¿ªÊ¼
+	for (int cnt=0; cnt < n;)//cntÎªÔªËØËùÔÚÎ»ÖÃ¼´ÔªËØÏÂ±êÖµ¼Ó1
+	{
+		if(s[cnt]==' ')
+		{
+			reverseWord(s,i,cnt);//Ã¿´ÎÓöµ½Ò»¸ö¿Õ¸ñ¾Í½«Ç°Ò»¸öµ¥´Ê·´×ª
+			i=cnt+1;//ÏÂÒ»¸öµ¥´ÊµÄ¿ªÊ¼µÄÏÂ±êÎªcnt+1
+		}		
+		cnt++;
+	}
+	cout<<s<<endl;
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+/*//·½·¨Ò»£º
 	char a[6]={'a','b','c','d','e','f'};
 	repeatRun(a,6,3);
+	*/
+//·½·¨¶ş£ºÊ¹ÓÃ¶ş·Ö·¨
+	string s="abcdef";
+	int n=static_cast<int>(s.size());
+	cout<<n<<endl;
+	repeatRun(s,n);
 
+//¾ÙÒ»·´ÈıÏ°Ìâ£º½«¾ä×ÓÖĞµÄµ¥´ÊË³Ğò·­×ª£¬Èç:"i am a student."·­×ªºóÊÇ"student. a am i"
+	string s2="i am a student.";
+	int n2=static_cast<int>(s2.size());
+	reverseWordRun(s2,n2);
 	system("pause");
 	return 0;
 }
